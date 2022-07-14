@@ -1,0 +1,28 @@
+{
+  "name": "advanced_react",
+  "version": "1.0.0",
+  "description": "Platzi - Advanced React Course",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgoscar2018/advanced_react.git"
+  },
+  "keywords": [],
+  "author": "Oscar Miranda <mgoscar@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mgoscar2018/advanced_react/issues"
+  },
+  "homepage": "https://github.com/mgoscar2018/advanced_react#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  }
+}
