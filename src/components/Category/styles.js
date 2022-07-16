@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Anchor = styled.a`
   display: flex;
@@ -17,5 +17,4 @@ export const Image = styled.img`
   object-fit: cover;
   height: 75px;
   width: 75px;
-
 `;

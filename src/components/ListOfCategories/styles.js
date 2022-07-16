@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { bounceDown } from '../../styles/animation';
 
 export const List = styled.ul`
@@ -8,7 +8,16 @@ export const List = styled.ul`
   &::-webkit-scrollbar {
     display: none;
   }
-  &.fixed { /* cuando tenga la clase 'fixed' tenga un estilo diferente */
+  /* cuando tenga la clase 'fixed' tenga un estilo diferente  */
+  /* &.fixed {  
+      ${bounceDown()}
+      background: white;
+      ... mismo codigo de abajo
+      transform: scale(0.5);
+      z-index: 1;
+    } */
+  /* Lo mismo que lo anterior pero utilizando Props en lugar de la clase 'fixed' */
+  ${props => props.fixed && css`
     ${bounceDown()}
     background: white;
     border-radius: 60px;
@@ -22,7 +31,7 @@ export const List = styled.ul`
     top: 0px;
     transform: scale(0.5);
     z-index: 1;
-  }
+  `}
 `;
 
 export const Item = styled.li`
