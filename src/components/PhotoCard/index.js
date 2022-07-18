@@ -1,35 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Article, ImgWrapper, Img, Button } from './styles';
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useNearScreen } from '../../hooks/useNearScreen';
 
 const DEFAULT_SRC = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60';
 
 export const PhotoCard = ({ id, likes = 0, src = DEFAULT_SRC }) => {
-  const element = useRef(null);
-  const [show, setShow] = useState(false);
-
-  useEffect(function () {
-    Promise.resolve(
-      typeof window.IntersectionObserver !== 'undefined' // Revisa si el navegdor soporta IntersectionObserver
-        ? window.IntersectionObserver // si lo soporta, carga el normal... de lo contrario, ejecuta el import dinámico
-        : import('intersection-observer') //import dinámico que devuelve una promesa
-    )
-    .then(()=> {
-      // console.log(element.current); // comprobamos que cada elemento está en el viewport del usuario
-      const observer = new window.IntersectionObserver(function (entries) {
-        // console.log(entries);
-        const { isIntersecting } = entries[0];
-        //console.log({isIntersecting});
-        console.log(isIntersecting);
-        if (isIntersecting) {
-          setShow(true);
-          observer.disconnect();
-        }
-      })
-      observer.observe(element.current);
-    })
-  }, [element]);
+  const [show, element] = useNearScreen();
+  const key = `like-${id}`;
+  const [liked, setLiked] = useLocalStorage(key, false);
   
+  const Icon = liked ? MdFavorite : MdFavoriteBorder; //Para cambiar el icono del corazón dependiendo de si le gusta o no
+
   return (
     <Article ref={element}>
       {
@@ -41,8 +24,8 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_SRC }) => {
             </ImgWrapper>
           </a>
 
-          <Button>
-            <MdFavoriteBorder size='32px' /> {likes} likes!
+          <Button onClick={()=> setLiked(!liked)}>
+            <Icon size='32px' /> {likes} likes!
           </Button>
         </>
       }

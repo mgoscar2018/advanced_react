@@ -47,11 +47,25 @@
 
 // Instalar Styled-Components
 // 1) npm i styled-components
+
+// Instalar React Apollo para conectarnos a un servidor GraphQL
+// 1) npm install @apollo/client graphql
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+    uri: 'https://petgram-server-mgoscar2018.vercel.app/graphql',
+    cache: new InMemoryCache(),
+})
 
 console.log('Mi proyecto con REACT Avanzado');
 // ReactDOM.render('Hola Platzi!',document.body); //Versión antigua
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>
+);
