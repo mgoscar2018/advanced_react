@@ -49,7 +49,7 @@ export const ListOfCategories = () => {
         //data.categories.map(category => <Item key={category.id}><Category {...category} /></Item>) // ... permite enviar todas las propiedades como props del objeto
         loading 
         ? [1, 2, 3, 4, 5].map(itemSke => <Item key={itemSke}><CategorySkeleton /></Item>) // Si está cargando, muestra skeleton de componentes
-        : categories.map(category => <Item key={category.id}><Category {...category} /></Item>) // ... permite enviar todas las propiedades como props del objeto
+        : categories.map(category => <Item key={category.id}><Category {...category} path={`/pet/${category.id}`}/></Item>) // ... permite enviar todas las propiedades como props del objeto
       }
     </List> 
   ); // <= IMPORTANTE - Son paréntesis no llaves, revisar diferencia entre este tipo de función flecha
