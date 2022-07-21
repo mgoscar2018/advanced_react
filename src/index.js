@@ -55,6 +55,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { Provider } from './Context';
 
 const client = new ApolloClient({
     uri: 'https://petgram-server-mgoscar2018.vercel.app/graphql',
@@ -65,7 +66,9 @@ console.log('Mi proyecto con REACT Avanzado');
 // ReactDOM.render('Hola Platzi!',document.body); //Versión antigua
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ApolloProvider client={client}>
-        <App />
-    </ApolloProvider>
+    <Provider>
+        <ApolloProvider client={client}>
+            <App />
+        </ApolloProvider>
+    </Provider>
 );

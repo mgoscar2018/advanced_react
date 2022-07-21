@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { Context } from './Context';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { Logo } from './components/Logo';
 import { Home } from './pages/Home';
@@ -10,8 +11,9 @@ import { Favs } from './pages/Favs';
 import { NavBar } from './components/NavBar';
 
 export const App = () => {
-  const isLogged = false;
+  //const isLogged = false;
   //const [isLogged, setIsLogged] = useState(true);
+  const { isAuth } = useContext(Context);
 
   return (
     <BrowserRouter>
@@ -22,8 +24,8 @@ export const App = () => {
           <Route path='/pet/:id' element={<Home />} />
           <Route path='/detail/:detailId' element={<Detail />} />
 
-          <Route path='/favs' element={isLogged ? <Favs /> : <NotRegisteredUser />} />
-          <Route path='/user' element={isLogged ? <User /> : <NotRegisteredUser />} />
+          <Route path='/favs' element={isAuth ? <Favs /> : <NotRegisteredUser />} />
+          <Route path='/user' element={isAuth ? <User /> : <NotRegisteredUser />} />
         </Routes>
         <NavBar />
     </BrowserRouter>
