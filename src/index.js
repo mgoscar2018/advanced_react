@@ -54,12 +54,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { Provider } from './Context';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+
+const httpLink = new HttpLink({
+    uri: "https://petgram-server-mgoscar2018.vercel.app/graphql"
+});
+
+const authLink = setContext(({ headers }) => {
+    const token = sessionStorage.getItem("token")
+    return {
+        headers: {
+            ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+        },
+    }
+});
+
+const errorLink = onError(({graphQLErrors, networkError}) => {
+    console.log("OCURRIO UN ERROR====================");
+    if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+            console.log(
+                `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+        );
+    if (networkError) console.log(`Network ERROR ${networkError}`);
+    sessionStorage.removeItem('token');
+    window.location.href = '/user';
+});
 
 const client = new ApolloClient({
-    uri: 'https://petgram-server-mgoscar2018.vercel.app/graphql',
-    cache: new InMemoryCache(),
+    link: from([errorLink, authLink, httpLink]),
+    cache: new InMemoryCache()
 })
 
 console.log('Mi proyecto con REACT Avanzado');

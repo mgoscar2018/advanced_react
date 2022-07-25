@@ -5,15 +5,15 @@ import { RegisterMutation } from '../container/RegisterMutation';
 import { LoginMutation } from '../container/LoginMutation';
 
 export const NotRegisteredUser = () => {
-    const { activateAuth } = useContext(Context)
+  const { activateAuth } = useContext(Context);
   return (
     <>
       <RegisterMutation>
         {
           (register, {data, loading, error}) => {
             const onSubmit = ({ email, password }) => { 
-              const input = { email, password }
-              const variables = { input }
+              const input = { email, password };
+              const variables = { input };
               register({ variables }).then(({ data }) => {
                 const { signup } = data;
                 activateAuth(signup);
