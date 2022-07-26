@@ -7,7 +7,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html' // Se indica que se va a utilizar esta página como template en la distribución
+      template: 'src/index.html', // Se indica que se va a utilizar esta página como template en la distribución
+      favicon: 'src/favicon.ico'
     })
   ],
   module: {
